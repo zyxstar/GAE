@@ -1,0 +1,55 @@
+application: zyx-star
+version: 2
+runtime: python
+api_version: 1
+
+inbound_services:
+- mail
+
+builtins:
+- appstats: on
+- datastore_admin : on
+- remote_api : on
+
+
+
+handlers:
+- url: /css
+  mime_type: text/css
+  expiration: 10000d
+  static_dir: static/css
+
+- url: /images
+  expiration: 10000d
+  static_dir: static/images
+
+- url: /scripts
+  static_dir: static/scripts
+  expiration: 10000d
+
+- url: /
+  static_files: index.htm
+  upload: index.htm
+
+- url: /favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+
+- url: /study
+  script: study.py
+
+- url: /_ah/mail/owner@zyx-star\.appspotmail\.com 
+  script: handle_owner.py 
+  login: admin
+
+- url: /app
+  static_dir: app
+
+- url: /app/(.*)
+  static_files: app/\1
+  upload: app/(.*)
+
+- url: /.*
+  script: code.py
+
+

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>China Chess</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="/scripts/jquery1.6.1.js" type="text/javascript"></script>
+    <script src="/scripts/array-extras.js" type="text/javascript"></script>
+    <script src="/scripts/utils.js" type="text/javascript"></script>
+    <script src="/scripts/Pos.js" type="text/javascript"></script>
+    <script src="/scripts/Board.js" type="text/javascript"></script>
+    <script src="/scripts/Piece.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_leader.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_shi.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_xiang.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_ma.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_ju.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_pao.js" type="text/javascript"></script>
+    <script src="/scripts/Piece_bing.js" type="text/javascript"></script>
+    <script src="/scripts/Cfg.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/Comm.js" type="text/javascript"></script>
+    <script src="/scripts/Panel.js" type="text/javascript"></script>
+    <script src="/scripts/ChessXhr.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/board.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/chess.css" type="text/css" media="screen" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            new ChessXhr().init();
+        }); 
+    </script>
+</head>
+<body>
+    <div id="cfg">
+        <input type="text" id="url" />
+        <input type="button" id="setServer" value="连接服务器" /><br />
+        <fieldset>
+            新建棋局[将是红方]：
+            <input type="text" id="newGameName" />
+            <input type="button" id="newGame" disabled="disabled" value="新建" /><br />
+            <hr />
+            加入已有[将是黑方]:
+            <input type="button" id="getGames" disabled="disabled" value="载入" />
+            <select id="games">
+            </select>
+            <input type="button" id="joinGame" disabled="disabled" value="加入" /><br />
+        </fieldset>
+    </div>
+    <div id="container" class="container">
+        <ul id="menu">
+            <li id="curCamp"></li>
+            <li id="myCamp"></li>
+            <li>
+                <label>
+                    <input id="hint" type="checkbox" checked="checked" title="提示" />提示</label>
+            </li>
+            <li>
+                <label>
+                    <input id="animate" type="checkbox" checked="checked" title="动画" />动画</label>
+            </li>
+            <li>
+                <input id="regret" disabled="disabled" type="button" value="悔棋" /></li>
+            <li>
+                <input id="gameOver" type="button" value="结束" /></li>
+        </ul>
+        <div id="board" class="board">
+        </div>
+    </div>
+    <div id="error">
+        <input type="button" value="X" id="err_close" />
+        <div id="err_details">
+        </div>
+    </div>
+</body>
+</html>

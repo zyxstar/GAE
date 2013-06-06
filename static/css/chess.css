@@ -1,0 +1,40 @@
+﻿ul#menu
+{
+	position:absolute;
+	top: 0px;
+	right: -120px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+input#url
+{
+	width: 400px;
+}
+input#newGameName
+{
+	width: 155px;
+}
+select#games
+{
+	width: 110px;
+}
+div#error
+{
+	position: relative;
+	margin: 0 auto;
+}
+div#err_details
+{
+	height: 100px;
+	width: 96%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border: solid 1px red;
+}
+input#err_close
+{
+	position: absolute;
+	right: 5px;
+	top: 0px;
+}

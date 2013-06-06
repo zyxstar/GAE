@@ -1,0 +1,53 @@
+﻿body
+{
+	text-align: left;
+}
+div.container
+{
+	margin: 0 auto;
+	position: relative;
+	width: 500px;
+	height: 550px;
+	background-image: url(../images/bg.jpg);
+	border: solid black 1px;
+}
+div.board
+{
+	position: absolute;
+	width: 450px;
+	height: 490px;
+	left: 30px;
+	top: 30px;
+}
+div.board div
+{
+	width: 28px;
+	height: 29px;
+	position: absolute;
+	margin: 0 10px 10px 0;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 11px 0 0 12px;
+	cursor: pointer;
+}
+.noraml
+{
+	background: url(../images/state.png) no-repeat -2px -2px;
+}
+.selected
+{
+	background: url(../images/state.png) no-repeat -42px -2px;
+}
+.warning
+{
+	background: url(../images/state.png) no-repeat -83px -2px;
+}
+.canmove
+{
+	background: url(../images/state.png) no-repeat -125px -2px;
+}
+.cankill
+{
+	background: url(../images/state.png) no-repeat -166px -2px;
+}
+
