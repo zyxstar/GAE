@@ -27,6 +27,26 @@ handlers:
   static_dir: static/scripts
   expiration: 10000d
 
+- url: /scripts/lib
+  static_dir: static/scripts/lib
+  expiration: 10000d
+
+- url: /scripts/ui
+  static_dir: static/scripts/ui
+  expiration: 10000d
+
+- url: /scripts/test
+  static_dir: static/scripts/test
+  expiration: 10000d
+
+- url: /scripts/vendor
+  static_dir: static/scripts/vendor
+  expiration: 10000d
+
+- url: /scripts/vendor/qunit
+  static_dir: static/scripts/vendor/qunit
+  expiration: 10000d
+
 - url: /
   static_files: index.htm
   upload: index.htm
@@ -38,8 +58,8 @@ handlers:
 - url: /study
   script: study.py
 
-- url: /_ah/mail/owner@zyx-star\.appspotmail\.com 
-  script: handle_owner.py 
+- url: /_ah/mail/owner@zyx-star\.appspotmail\.com
+  script: handle_owner.py
   login: admin
 
 - url: /app
@@ -50,6 +70,6 @@ handlers:
   upload: app/(.*)
 
 - url: /.*
-  script: code.py
+  script: home.py
 
 
