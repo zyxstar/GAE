@@ -1,88 +1,35 @@
-String.trim = function (s) {
-    return s.replace(/^\s+|\s+$/, '');
-};
+define (function (require, exports, module){
 
-function extend(subClass, superClass) {
-    var F = function() {};
-    F.prototype = superClass.prototype;
-    subClass.prototype = new F();
-    subClass.prototype.constructor = subClass;
+    exports.extend = function (subClass, superClass) {
+        var F = function() {};
+        F.prototype = superClass.prototype;
+        subClass.prototype = new F();
+        subClass.prototype.constructor = subClass;
 
-	subClass.superclass = superClass.prototype;
-	if(superClass.prototype.constructor == Object.prototype.constructor) {
-		superClass.prototype.constructor = superClass;
-  }
-}
-
-// Constructor.
-
-var Interface = function (name, methods) {
-    if (arguments.length != 2) {
-        throw new Error("Interface constructor called with " + arguments.length
-          + "arguments, but expected exactly 2.");
-    }
-
-    this.name = name;
-    this.methods = [];
-    for (var i = 0, len = methods.length; i < len; i++) {
-        if (typeof methods[i] !== 'string') {
-            throw new Error("Interface constructor expects method names to be "
-              + "passed in as a string.");
+        subClass.superclass = superClass.prototype;
+        if(superClass.prototype.constructor == Object.prototype.constructor) {
+            superClass.prototype.constructor = superClass;
         }
-        this.methods.push(methods[i]);
-    }
-};
+    };
 
-// Static class method.
-
-Interface.ensureImplements = function (object) {
-    if (arguments.length < 2) {
-        throw new Error("Function Interface.ensureImplements called with " +
-          arguments.length + "arguments, but expected at least 2.");
-    }
-
-    for (var i = 1, len = arguments.length; i < len; i++) {
-        var interface = arguments[i];
-        if (interface.constructor !== Interface) {
-            throw new Error("Function Interface.ensureImplements expects arguments "
-              + "two and above to be instances of Interface.");
+    exports.range = function (start, end, step) {
+        var ret = [], i;
+        if(arguments.length === 1) {
+            end = start;
+            start = 0;
         }
+        step = step || 1;
+        for(i = start; (step > 0 && i < end) || (step < 0 && i > end); i += step)
+            ret.push(i);
+        return ret;
+    };
 
-        for (var j = 0, methodsLen = interface.methods.length; j < methodsLen; j++) {
-            var method = interface.methods[j];
-            if (!object[method] || typeof object[method] !== 'function') {
-                throw new Error("Function Interface.ensureImplements: object "
-                  + "does not implement the " + interface.name
-                  + " interface. Method " + method + " was not found.");
-            }
+    exports.takeWhile = function (list, predicate, context) {
+        var ret = [];
+        for(var i = 0, len = list.length; i < len; i++){
+            if (predicate.call(context, list[i], i, list)) break;
+            ret.push(list[i]);
         }
-    }
-};
-
-
-/*
-
-
-// Example usage: 
-
-// Interfaces.
-
-var Composite = new Interface('Composite', ['add', 'remove', 'getChild']);
-var FormItem = new Interface('FormItem', ['save']);
-
-// CompositeForm class
-
-var CompositeForm = function(id, method, action) { // implements Composite, FormItem
-...
-};
-
-...
-
-function addForm(formInstance) {
-Interface.ensureImplements(formInstance, Composite, FormItem);
-// This function will throw an error if a required method is not implemented, halting execution.
-// All code beneath this line will be executed only if the checks pass.
-...
-}
-
-*/
+        return ret;
+    };
+});

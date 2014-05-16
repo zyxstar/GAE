@@ -1,80 +1,88 @@
-function Piece_pao(camp, pos) {
-    Piece_pao.superclass.constructor.call(this, 'pao', camp, pos);
-}
-extend(Piece_pao, BasePiece);
-Piece_pao.prototype._calcRoute = function () {
-    this.top = null;
-    this.right = null;
-    this.down = null;
-    this.left = null;
-    this.canMoveArray = [];
-    var me = this;
+define (function (require, exports, module){
+    var utils = require('lib/utils'),
+        BasePiece = require('lib/piece'),
+        Board = require('lib/board'),
+        Pos = require('lib/pos');
 
-    function help(pos, f) {
-        var piece = this.board.getPiece(pos);
-        if (piece) {
-            f(piece);
-            return true;
+    function Piece_pao(camp, pos) {
+        Piece_pao.superclass.constructor.call(this, 'pao', camp, pos);
+    }
+    utils.extend(Piece_pao, BasePiece);
+    Piece_pao.prototype._calcRoute = function () {
+        var x,
+            y,
+            me = this;
+
+        this.scope = { top: null, right: null, bottom: null, left: null};
+        this.canMoveArr = [];
+
+        function check_collision(posx, posy, orientation) {
+            var pos = new Pos(posx, posy);
+            var piece = me.board.getPiece(pos);
+            if (piece) me.scope[orientation] = piece;
+            else me.canMoveArr.push(pos);
+            return !!piece;
         }
-        else
-            this.canMoveArray.push(pos);
-        return false;
-    }
 
-    for (var y = this.pos.y + 1; y < Board.ROWS; y++) {//top       
-        if (help.call(this, new Pos(this.pos.x, y), function (piece) { me.top = piece; })) break;
-    }
-
-    for (var x = this.pos.x + 1; x < Board.COLS; x++) {//right
-        if (help.call(this, new Pos(x, this.pos.y), function (piece) { me.right = piece; })) break;
-    }
-
-    for (var y = this.pos.y - 1; y >= 0; y--) {//down
-        if (help.call(this, new Pos(this.pos.x, y), function (piece) { me.down = piece; })) break;
-    }
-
-    for (var x = this.pos.x - 1; x >= 0; x--) {//left
-        if (help.call(this, new Pos(x, this.pos.y), function (piece) { me.left = piece; })) break;
-    }
-
-};
-
-Piece_pao.prototype.canMove = function () {//return absolute pos array straight
-    this._calcRoute();
-    return this.canMoveArray;
-};
-Piece_pao.prototype.canKill = function () {
-    var ret = [];
-    this._calcRoute();
-
-    function help(pos) {
-        var piece = this.board.getPiece(pos);
-        if (piece) {
-            if (piece.camp != this.camp) ret.push(piece.pos);
-            return true;
+        for (y = this.pos.y + 1; y < Board.ROWS; y++) {
+            if (check_collision(this.pos.x, y, 'top')) break;
         }
-        return false;
-    }
 
-    if (this.top) {
-        for (var y = this.top.pos.y + 1; y < Board.ROWS; y++) {
-            if (help.call(this, new Pos(this.pos.x, y))) break;
+        for (x = this.pos.x + 1; x < Board.COLS; x++) {
+            if (check_collision(x, this.pos.y, 'right')) break;
         }
-    }
-    if (this.right) {
-        for (var x = this.right.pos.x + 1; x < Board.COLS; x++) {
-            if (help.call(this, new Pos(x, this.pos.y))) break;
+
+        for (y = this.pos.y - 1; y >= 0; y--) {
+            if (check_collision(this.pos.x, y, 'bottom')) break;
         }
-    }
-    if (this.down) {
-        for (var y = this.down.pos.y - 1; y >= 0; y--) {
-            if (help.call(this, new Pos(this.pos.x, y))) break;
+
+        for (x = this.pos.x - 1; x >= 0; x--) {
+            if (check_collision(x, this.pos.y, 'left')) break;
         }
-    }
-    if (this.left) {
-        for (var x = this.left.pos.x - 1; x >= 0; x--) {
-            if (help.call(this, new Pos(x, this.pos.y))) break;
+
+    };
+
+    Piece_pao.prototype.canMove = function () {//return absolute pos array straight
+        this._calcRoute();
+        return this.canMoveArr;
+    };
+    Piece_pao.prototype.canKill = function () {
+        var x,
+            y,
+            ret = [],
+            me = this;
+        this._calcRoute();
+
+        function check_collision(posx, posy) {
+            var piece = me.board.getPiece(new Pos(posx, posy));
+            if (piece && piece.camp !== me.camp)
+                ret.push(piece.pos);
+            return !!piece;
         }
-    }
-    return ret;
-};
+
+        if (this.scope.top) {
+            for (y = this.scope.top.pos.y + 1; y < Board.ROWS; y++) {
+                if (check_collision(this.pos.x, y)) break;
+            }
+        }
+        if (this.scope.right) {
+            for (x = this.scope.right.pos.x + 1; x < Board.COLS; x++) {
+                if (check_collision(x, this.pos.y)) break;
+            }
+        }
+        if (this.scope.bottom) {
+            for (y = this.scope.bottom.pos.y - 1; y >= 0; y--) {
+                if (check_collision(this.pos.x, y)) break;
+            }
+        }
+        if (this.scope.left) {
+            for (x = this.scope.left.pos.x - 1; x >= 0; x--) {
+                if (check_collision(x, this.pos.y)) break;
+            }
+        }
+        return ret;
+    };
+
+    return Piece_pao;
+
+});

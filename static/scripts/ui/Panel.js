@@ -1,4 +1,4 @@
-﻿function Panel($boardDiv) {
+﻿function Panel($boardContainer) {
     var PIECE_DISTANCE = 50;
 
     var pos_div = {};
@@ -27,7 +27,7 @@
         else
             $div.css({ left: (Board.COLS - 1 - x) * PIECE_DISTANCE, top: y * PIECE_DISTANCE });
         $div[0].id = x.toString() + y.toString();
-        $div.appendTo($boardDiv);
+        $div.appendTo($boardContainer);
         $div.bind('click', _divClick);
         return $div;
     }
@@ -66,7 +66,7 @@
         }
         else {//second click
             if (!curPiece.moveTo(Pos.parse(this.id))) //try moving,if can not
-                me.drawPiece(curPiece); //reset self       
+                me.drawPiece(curPiece); //reset self
             curPiece = null;
             me.resetCurrent();
             return;
@@ -116,7 +116,7 @@
 
     this.drawPiece = function (piece) {
         var $div = _getDiv(piece.pos.x, piece.pos.y);
-        $div.text(piece.showName());
+        $div.text(Cfg.showName(piece));
         $div[0].className = 'noraml';
         $div.css({ color: piece.camp });
     };
@@ -131,8 +131,8 @@
         var $divA = $('#' + posA.toString());
         var $divB = $('#' + posB.toString());
         var $divPiece = $divB.clone(); //piece already in posB
-        $divPiece.appendTo($boardDiv);
-        $divPiece.css({ left: $divA.css('left'), top: $divA.css('top') });        
+        $divPiece.appendTo($boardContainer);
+        $divPiece.css({ left: $divA.css('left'), top: $divA.css('top') });
         $divB.hide();
 
         var piece=me.board.getPiece(posB);
@@ -145,10 +145,10 @@
         else {
             $divPiece.animate({ left: $divB.css('left'), top: $divB.css('top') }, 200, end);
         }
-        
+
         function end(){
             $divB.show();
-            $divPiece.remove();			
+            $divPiece.remove();
         }
     };
 }

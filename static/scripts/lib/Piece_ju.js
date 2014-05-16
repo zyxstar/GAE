@@ -1,55 +1,70 @@
-function Piece_ju(camp, pos) {
-    Piece_ju.superclass.constructor.call(this, 'ju', camp, pos);
-}
-extend(Piece_ju, BasePiece);
-Piece_ju.prototype.calcVectors = function () {//return relative vector array
-    var ret = [];
+define (function (require, exports, module){
+    var utils = require('lib/utils'),
+        BasePiece = require('lib/piece'),
+        Pos = require('lib/pos'),
+        Board = require('lib/board');
 
-    function help(pos, f) {
-        var piece = this.board.getPiece(pos);
-        if (piece) {
-            f();
-            return true;
+    function Piece_ju(camp, pos) {
+        Piece_ju.superclass.constructor.call(this, 'ju', camp, pos);
+    }
+    utils.extend(Piece_ju, BasePiece);
+    Piece_ju.prototype.calcVectors = function () {//return relative vector array
+        var ret = [],
+            me = this;
+
+        function check_collision(posx, posy, vec) {
+            ret.push(vec);
+            return !!me.board.getPiece(new Pos(posx,posy));
         }
-        else
-            f();
+
+        utils.takeWhile(utils.range(this.pos.y, Board.ROWS-1), //top
+            function(item, idx, arr){
+                return check_collision(this.pos.x, arr[idx+1], [0, idx+1]);
+            });
+
+        utils.takeWhile(utils.range(this.pos.x, Board.COLS-1), //right
+            function(item, idx, arr){
+                return check_collision(arr[idx+1], this.pos.y, [idx+1, 0]);
+            });
+
+        utils.takeWhile(utils.range(this.pos.y, 0, -1), //bottom
+            function(item, idx, arr){
+                return check_collision(this.pos.x, arr[idx+1], [0, 0-idx+1]);
+            });
+
+        utils.takeWhile(utils.range(this.pos.x, 0, -1), //left
+            function(item, idx, arr){
+                return check_collision(arr[idx+1], this.pos.y, [0-idx+1, 0]);
+            });
+
+        // var topArr = utils.range(this.pos.y, Board.ROWS);
+        // for (i = 1, len = topArr.length; i < len; i++) {
+        //     if (check_collision(this.pos.x, topArr[i], [0, i]))
+        //         break;
+        // }
+
+        // var rightArr = utils.range(this.pos.x, Board.COLS);
+        // for (i = 1, len = rightArr.length; i < len; i++) {
+        //     if (check_collision(rightArr[i], this.pos.y, [i, 0]))
+        //         break;
+        // }
+
+        // var bottomArr = utils.range(this.pos.y, -1, -1);
+        // for (i = 1, len = bottomArr.length; i < len; i++) {
+        //     if (check_collision(this.pos.x, downArr[i], [0, 0 - i]))
+        //         break;
+        // }
+
+        // var leftArr = utils.range(this.pos.x, -1, -1);
+        // for (i = 1, len = leftArr.length; i < len; i++) {
+        //     if (check_collision(leftArr[i], this.pos.y, [0 - i, 0]))
+        //         break;
+        // }
+
+        return ret;
+    };
+    Piece_ju.prototype.isRestrict = function () {
         return false;
-    }
-
-    var topArr = Array.range(this.pos.y, Board.ROWS)
-    for (var i = 1; i < topArr.length; i++) {
-        if (help.call(this, new Pos(this.pos.x, topArr[i]),
-            function () {
-                ret.push([0, i]);
-            })) break;
-    }
-
-    var rightArr = Array.range(this.pos.x, Board.COLS)
-    for (var i = 1; i < rightArr.length; i++) {
-        if (help.call(this, new Pos(rightArr[i], this.pos.y),
-            function () {
-                ret.push([i, 0]);
-            })) break;
-    }
-
-    var downArr = Array.range(this.pos.y, -1, -1)
-    for (var i = 1; i < downArr.length; i++) {
-        if (help.call(this, new Pos(this.pos.x, downArr[i]),
-            function () {
-                ret.push([0, 0 - i]);
-            })) break;
-    }
-
-    var leftArr = Array.range(this.pos.x, -1, -1)
-    for (var i = 1; i < leftArr.length; i++) {
-        if (help.call(this, new Pos(leftArr[i], this.pos.y),
-            function () {
-                ret.push([0 - i, 0]);
-            })) break;
-    }
-
-    return ret;
-};
-Piece_ju.prototype.isRestrict = function () {
-    return false;
-};
+    };
+    return Piece_ju;
+});
