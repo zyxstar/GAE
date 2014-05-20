@@ -90,6 +90,8 @@ define (function (require, exports, module){
             return this._pos_piece[pos.toString()];
         },
         execute: function (posA, posB) {
+            if (!(posA instanceof Pos)) posA = Pos.parse(posA);
+            if (!(posB instanceof Pos)) posB = Pos.parse(posB);
             var info = {
                 camp: this.curCamp,
                 posA: posA,

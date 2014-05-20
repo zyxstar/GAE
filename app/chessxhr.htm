@@ -3,32 +3,10 @@
 <head>
     <title>China Chess</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <script src="/scripts/vendor/jquery1.6.1.js" type="text/javascript"></script>
-    <script src="/scripts/vendor/array-extras.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/static/css/board.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/static/css/chess.css" type="text/css" media="screen" />
 
-    <script src="/scripts/lib/utils.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Pos.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Board.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_leader.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_shi.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_xiang.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_ma.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_ju.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_pao.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Piece_bing.js" type="text/javascript"></script>
-    <script src="/scripts/lib/Cfg.js" type="text/javascript" charset="utf-8"></script>
-
-    <script src="/scripts/ui/Comm.js" type="text/javascript"></script>
-    <script src="/scripts/ui/Panel.js" type="text/javascript"></script>
-    <script src="/scripts/ui/ChessXhr.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/css/board.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="/css/chess.css" type="text/css" media="screen" />
-    <script type="text/javascript">
-        $(document).ready(function () {
-            new ChessXhr().init();
-        });
-    </script>
+    <script data-main="/static/scripts/ui/chessxhr" src="/static/scripts/vendor/require2.1.9.js"></script>
 </head>
 <body>
     <div id="cfg">

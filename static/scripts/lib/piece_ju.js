@@ -17,25 +17,25 @@ define (function (require, exports, module){
             return !!me.board.getPiece(new Pos(posx,posy));
         }
 
-        utils.takeWhile(utils.range(this.pos.y, Board.ROWS-1), //top
+        utils.takeWhile(utils.range(this.pos.y+1, Board.ROWS), //top
             function(item, idx, arr){
-                return check_collision(this.pos.x, arr[idx+1], [0, idx+1]);
-            });
+                return check_collision(this.pos.x, arr[idx], [0, idx+1]);
+            }, this);
 
-        utils.takeWhile(utils.range(this.pos.x, Board.COLS-1), //right
+        utils.takeWhile(utils.range(this.pos.x+1, Board.COLS), //right
             function(item, idx, arr){
-                return check_collision(arr[idx+1], this.pos.y, [idx+1, 0]);
-            });
+                return check_collision(arr[idx], this.pos.y, [idx+1, 0]);
+            }, this);
 
-        utils.takeWhile(utils.range(this.pos.y, 0, -1), //bottom
+        utils.takeWhile(utils.range(this.pos.y-1, -1, -1), //bottom
             function(item, idx, arr){
-                return check_collision(this.pos.x, arr[idx+1], [0, 0-idx+1]);
-            });
+                return check_collision(this.pos.x, arr[idx], [0, 0-idx+1]);
+            }, this);
 
-        utils.takeWhile(utils.range(this.pos.x, 0, -1), //left
+        utils.takeWhile(utils.range(this.pos.x-1, -1, -1), //left
             function(item, idx, arr){
-                return check_collision(arr[idx+1], this.pos.y, [0-idx+1, 0]);
-            });
+                return check_collision(arr[idx], this.pos.y, [0-idx+1, 0]);
+            }, this);
 
         // var topArr = utils.range(this.pos.y, Board.ROWS);
         // for (i = 1, len = topArr.length; i < len; i++) {
