@@ -29,12 +29,12 @@ define (function (require, exports, module){
 
         utils.takeWhile(utils.range(this.pos.y-1, -1, -1), //bottom
             function(item, idx, arr){
-                return check_collision(this.pos.x, arr[idx], [0, 0-idx+1]);
+                return check_collision(this.pos.x, arr[idx], [0, 0-idx-1]);
             }, this);
 
         utils.takeWhile(utils.range(this.pos.x-1, -1, -1), //left
             function(item, idx, arr){
-                return check_collision(arr[idx], this.pos.y, [0-idx+1, 0]);
+                return check_collision(arr[idx], this.pos.y, [0-idx-1, 0]);
             }, this);
 
         // var topArr = utils.range(this.pos.y, Board.ROWS);
