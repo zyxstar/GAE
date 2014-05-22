@@ -29,9 +29,9 @@ define (function (require, exports, module){
         },
         isInArray: function (arr) {
             var me = this;
-            return (arr.find(function (item, index) {
+            return (arr.filter(function (item, index) {
                 return me.equals(item);
-            }) !== null);
+            }).length > 0);
         },
         isCur: function () {
             return this.board.curCamp == this.camp;
