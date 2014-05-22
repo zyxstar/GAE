@@ -1,4 +1,6 @@
-﻿function TestPos() {
+﻿define(function(require) {
+    var Pos = require('lib/pos');
+
     module("Pos");
     test("ctor_Throw", function () {
         raises(function () {
@@ -21,11 +23,12 @@
     });
 
     test("isInArray", function () {
-        var data = [[1, 1], [2, 2], [3, 3], [4, 4]];
-        var arr = [];
-        for (var i = 0; i < data.length; i++)
+        var data = [[1, 1], [2, 2], [3, 3], [4, 4]],
+            arr = [],
+            i, len;
+        for ( i = 0, len = data.length; i < len; i++)
             arr.push(Pos.parse(data[i]));
-        for (var i = 0; i < data.length; i++)
+        for ( i = 0, len = data.length; i < len; i++)
             ok(new Pos(data[i][0], data[i][1]).isInArray(arr));
         ok(!new Pos(5, 5).isInArray(arr));
     });
@@ -56,4 +59,4 @@
     });
 
 
-}
+});

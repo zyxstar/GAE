@@ -1,4 +1,8 @@
-﻿function TestBoard() {
+﻿define(function(require) {
+    var Pos = require('lib/pos'),
+        BasePiece = require('lib/piece'),
+        Board = require('lib/board');
+
     module("Board");
     test("_isOverBoard", function () {
         var data = [];
@@ -248,4 +252,4 @@
         ok(!b.getPiece(pos3));
     });
 
-}
+});

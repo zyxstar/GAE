@@ -1,4 +1,9 @@
-﻿function TestPiece() {
+﻿define(function(require) {
+    var Pos = require('lib/pos'),
+        BasePiece = require('lib/piece'),
+        Piece_ma = require('lib/piece_ma'),
+        Board = require('lib/board');
+
     module("BasePiece");
     test("_calcPos", function () {
         var p = new BasePiece(null, null, new Pos(5, 5));
@@ -72,9 +77,7 @@
             p.board = b;
             arr.push(p);
         }
-        for (var i = 0; i < arr.length; i++)
-            ok(arr[i].isInArray(arr));
-        ok(!new BasePiece('r1', 'black', new Pos(1, 1)).isInArray(arr));
+        ok(!(new BasePiece('r1', 'black', new Pos(1, 1)).isInArray(arr)));
     });
 
     test("canMove", function () {
@@ -85,8 +88,8 @@
         var call_isRestrict = 0;
         var call_belong = 0;
         //mock
-        p.calcVectors = function () { call_calcVectors = true; return [[1, 1], [2, 2], [3, 3]] };
-        p._calcPos = function (vec) { call_calcPos++; return vec };
+        p.calcVectors = function () { call_calcVectors = true; return [[1, 1], [2, 2], [3, 3]]; };
+        p._calcPos = function (vec) { call_calcPos++; return vec; };
         p.board = {
             _isOverBoard: function () { call_isOverBoard++; return false; },
             _belong: function () { call_belong++; return 'black'; }
@@ -158,4 +161,4 @@
         same(ma._calcLeg([-2, 1]), [-1, 0]);
         same(ma._calcLeg([-1, 2]), [0, 1]);
     });
-}
+});

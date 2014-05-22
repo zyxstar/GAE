@@ -1,62 +1,22 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Comm Test</title>
-    <link rel="stylesheet" href="../vendor/qunit/qunit.css" type="text/css" media="screen" />
-    <script src="../vendor/jquery1.6.1.js" type="text/javascript"></script>
-    <script src="../vendor/qunit/qunit.js" type="text/javascript"></script>
-    <script src="../ui/Comm.js" type="text/javascript"></script>
-    <script src="TestComm.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#run").click(function(){
-                TestComm($("#txt_comurl").val(),$("#txt_cominterval").val());
-            });
-        });
+  <meta charset="UTF-8">
+  <title>QUnit Runner</title>
+  <link rel="stylesheet" href="../vendor/qunit/qunit.css" />
+  <script src="../vendor/qunit/qunit.js" type="text/javascript"></script>
+  <script data-main="testComm" src="../vendor/require2.1.9.js" type="text/javascript" ></script>
 
-        function reload() {
-            var href = window.location.href;
-            var search = window.location.search;
-            if (search)
-                window.location.href = href.substr(0, href.indexOf(search));
-            else
-                window.location.reload();
-        };
 
-    </script>
-    <style type="text/css">
-        body{
-            font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
-        }
-        label.lb{
-            display: inline-block;
-            width: 80px;
-        }
-        #txt_comurl,#txt_cominterval{
-            width: 300px;
-        }
-    </style>
 </head>
 <body>
-    <h1 id="qunit-header">
-        Comm Test</h1>
+  <h1 id="qunit-header">chess unit tests</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture"></div>
 
-    <label class='lb' for="txt_comurl">ServerURL:</label>
-    <input id = 'txt_comurl' type='text' value="http://zyx-star.appsp0t.com/chessxhr"/>
-    <br/>
-    <label class='lb' for="txt_cominterval">Internal:</label>
-    <input id = 'txt_cominterval' type='text' value="500"/>
-    <button id ='run'>Run</button>
-    <button onclick="reload()">Refresh</button>
-    <h2 id="qunit-banner">
-    </h2>
-    <div id="qunit-testrunner-toolbar">
-    </div>
-    <h2 id="qunit-userAgent">
-    </h2>
-    <ol id="qunit-tests">
-    </ol>
-    <div id="qunit-fixture">
-        test markup, will be hidden</div>
+
 </body>
 </html>
