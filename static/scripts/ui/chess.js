@@ -1,14 +1,15 @@
 ﻿require.config({
-    baseUrl: '../static/scripts',
+    // baseUrl: '../static/scripts',
+    baseUrl: '../static/scripts-build',
     shim: {
         json2: {
             exports: 'JSON'
         }
     },
     paths: {
-        jquery: 'vendor/jquery2.0.3',
-        json2: 'vendor/json2',
-        text: 'vendor/requirejs-text'
+        jquery: '/static/scripts/vendor/jquery2.0.3',
+        json2: '/static/scripts/vendor/json2',
+        text: '/static/scripts/vendor/requirejs-text'
     }
 });
 

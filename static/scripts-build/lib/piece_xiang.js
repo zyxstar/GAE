@@ -1,0 +1,2 @@
+define(["require","exports","module","lib/utils","lib/piece"],function(t){function e(t,i){e.superclass.constructor.call(this,"xiang",t,i)}var i=t("lib/utils"),r=t("lib/piece");return i.extend(e,r),e.prototype._calcLeg=function(t){return[t[0]/2,t[1]/2]},e.prototype.calcVectors=function(){return[[2,2],[2,-2],[-2,-2],[-2,2]]},e.prototype.isRestrict=function(t,e){if("red"==this.camp&&t.y>4)return!0;if("black"==this.camp&&t.y<5)return!0;var i=this._calcPos(this._calcLeg(e));return this.board.getPiece(i)?!0:!1},e});
+//# sourceMappingURL=piece_xiang.js.map

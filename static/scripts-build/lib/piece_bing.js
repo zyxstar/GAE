@@ -1,0 +1,2 @@
+define(["require","exports","module","lib/utils","lib/piece"],function(t){function i(t,e){i.superclass.constructor.call(this,"bing",t,e)}var e=t("lib/utils"),s=t("lib/piece");return e.extend(i,s),i.prototype.calcVectors=function(){return"red"==this.camp?[[0,1],[1,0],[-1,0]]:[[0,-1],[1,0],[-1,0]]},i.prototype.isRestrict=function(t){return"red"==this.camp&&this.pos.y<=4&&t.x!=this.pos.x?!0:"black"==this.camp&&this.pos.y>=5&&t.x!=this.pos.x?!0:!1},i});
+//# sourceMappingURL=piece_bing.js.map

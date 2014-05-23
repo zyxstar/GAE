@@ -1,0 +1,2 @@
+define(["require","exports","module","lib/utils","lib/piece"],function(t){function e(t,i){e.superclass.constructor.call(this,"shi",t,i)}var i=t("lib/utils"),r=t("lib/piece");return i.extend(e,r),e.prototype.calcVectors=function(){return[[1,1],[1,-1],[-1,-1],[-1,1]]},e.prototype.isRestrict=function(t){return"red"==this.camp&&(t.x<3||t.x>5||t.y>3)?!0:"black"==this.camp&&(t.x<3||t.x>5||t.y<7)?!0:!1},e});
+//# sourceMappingURL=piece_shi.js.map
